@@ -38,3 +38,14 @@ class DBHelper():
             print('User not found\n')
         else:
             print('User was deleted successfully\n')
+
+    def select_password(self, query_vals):
+        self.command_handler.execute(
+            "SELECT password FROM users WHERE username = %s AND privilege = %s",
+            query_vals
+        )
+
+        if self.command_handler.rowcount < 1:
+            return None
+        else:
+            return self.command_handler.fetchone()[0]
